@@ -62,7 +62,7 @@ class CouplingLayer(nn.Module):
                 x = (x + t) * exp_s
 
                 # Add log-determinant of the Jacobian
-                sldj += s.view(s.size(0), -1).sum(-1)
+                sldj += s.reshape(s.size(0), -1).sum(-1)
         else:
             # Channel-wise mask
             if self.reverse_mask:
@@ -87,7 +87,7 @@ class CouplingLayer(nn.Module):
                 x_change = (x_change + t) * exp_s
 
                 # Add log-determinant of the Jacobian
-                sldj += s.view(s.size(0), -1).sum(-1)
+                sldj += s.reshape(s.size(0), -1).sum(-1)
 
             if self.reverse_mask:
                 x = torch.cat((x_id, x_change), dim=1)
